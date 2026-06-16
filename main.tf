@@ -2,13 +2,19 @@ provider "aws" {
   region = var.region
 }
 
+# Generates a dynamic, random suffix to guarantee global uniqueness
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
 resource "aws_s3_bucket" "main" {
-  bucket = var.resource_name
+  # Dynamically constructs the bucket name (e.g., dev-iacm-bucket-a1b2c3)
+  bucket = "${var.environment}-${var.resource_name}-${random_id.bucket_suffix.hex}"
 
   tags = merge(
     var.tags,
     {
-      Name        = var.resource_name
+      Name        = "${var.environment}-${var.resource_name}-${random_id.bucket_suffix.hex}"
       Environment = var.environment
     }
   )

@@ -1,4 +1,4 @@
-resource_name = "indranil-iacm-bucket "
+resource_name = "iacm-bucket"
 region        = "us-east-1"
 environment   = "dev"
 
@@ -8,6 +8,3 @@ tags = {
   ManagedBy   = "Terraform"
   Owner       = "indranil"
 }
-
-state_bucket        = "indranil-iacm-bucket"
-state_bucket_region = "us-east-1"
