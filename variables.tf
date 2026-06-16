@@ -1,19 +1,33 @@
-variable "bucket_name" {
-  description = "The name of the S3 bucket"
+variable "resource_name" {
+  description = "Name of the S3 bucket (must be globally unique)"
   type        = string
 }
 
 variable "region" {
-  description = "The AWS region to deploy to"
+  description = "AWS region to deploy resources"
   type        = string
   default     = "us-east-1"
 }
 
 variable "tags" {
-  description = "Tags to apply to the resources"
+  description = "Tags to apply to all resources"
   type        = map(string)
-  default = {
-    Environment = "Dev"
-    Project     = "iacm-terraform-basics"
-  }
+  default     = {}
+}
+
+variable "environment" {
+  description = "Deployment environment (dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
+variable "state_bucket" {
+  description = "S3 bucket name used for Terraform remote state"
+  type        = string
+}
+
+variable "state_bucket_region" {
+  description = "Region where the Terraform state S3 bucket lives"
+  type        = string
+  default     = "us-east-1"
 }
