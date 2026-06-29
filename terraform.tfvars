@@ -7,4 +7,5 @@ tags = {
   Environment = "dev"
   ManagedBy   = "Terraform"
   Owner       = "indranil"
+  MigrationTest = "OpenTofu"
 }
