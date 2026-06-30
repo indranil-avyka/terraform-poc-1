@@ -46,3 +46,35 @@ resource "aws_s3_bucket_public_access_block" "main" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+# Fetch the latest Amazon Linux 2023 AMI
+data "aws_ami" "amazon_linux_2023" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023*-kernel-6.1-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+# Launch 5 t2.micro EC2 instances
+resource "aws_instance" "web" {
+  count         = 5
+  ami           = data.aws_ami.amazon_linux_2023.id
+  instance_type = "t2.micro"
+
+  tags = merge(
+    var.tags,
+    {
+      Name        = "${var.environment}-web-server-${count.index + 1}"
+      Environment = var.environment
+    }
+  )
+}
+
