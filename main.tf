@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
 # Generates a dynamic, random suffix to guarantee global uniqueness
 resource "random_id" "bucket_suffix" {
   byte_length = 4

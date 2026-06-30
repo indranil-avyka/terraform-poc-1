@@ -11,11 +11,5 @@ terraform {
       version = "~> 3.5"
     }
   }
-
-  backend "s3" {
-    bucket  = "indranil-iacm-bucket"
-    key     = "iacm-basics/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
-  }
 }
+
